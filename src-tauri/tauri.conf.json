@@ -15,7 +15,8 @@
         "title": "echo",
         "width": 1000,
         "height": 650,
-        "decorations": false
+        "decorations": false,
+        "transparent": true
       }
     ],
     "security": {
