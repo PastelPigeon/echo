@@ -128,6 +128,20 @@
   margin: -2px;
 }
 
+.button-wrapper{
+  width: fit-content;
+  height: fit-content;
+  padding: 0px;
+}
+
+.button-wrapper button{
+  position: relative;
+  top: -5px;
+  left: 0px;
+  margin-bottom: -4px;
+  border-radius: 6px;
+}
+
 body{
   margin: 0px;
   padding: 0px;
@@ -157,6 +171,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  background: #2b3949;
 }
 
 .window .title-bar{
@@ -176,6 +191,7 @@ body{
 .window .title-bar .left .title{
   font-family: "ark-pixel";
   font-size: 14px;
+  color: #e9ece9;
 }
 
 .window .title-bar .right{
@@ -189,9 +205,16 @@ body{
 .window .title-bar .right button{
   width: 24px;
   height: 24px;
-  background: transparent;
+  background: #c47688;
   border: none;
-  border-bottom: transparent 3px solid;
+  border-bottom: #8f5561 4px solid;
+  color: #e9ece9;
+  transition: all 0.1s;
+}
+
+.window .title-bar .right button:active{
+  border-bottom: #8f5561 1px solid;
+  filter: brightness(0.8);
 }
 
 .window > .content{
@@ -199,4 +222,5 @@ body{
   left: 3px;
   width: calc(100% - 10px);
   height: calc(100% - 47px);
+  background: #122125;
 }
