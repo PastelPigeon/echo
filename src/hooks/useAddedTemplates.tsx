@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react"
+import { useSelectedTemplate } from "./useSelectedTemplate"
 
 type AddedTemplatesContextType = {
   add: (url: string) => void
@@ -11,6 +12,9 @@ const AddedTemplatesContext = createContext<AddedTemplatesContextType | null>(nu
 function AddedTemplatesProvider(props: {children: ReactNode}){
   // 初始化addedTemplates
   const [addedTemplates, setAddedTemplates] = useState<string[]>(JSON.parse(localStorage.getItem("addedTemplates") || JSON.stringify([])))
+
+  // 添加选中的模板的引用来处理特殊情况
+  const { switchSelectedTemplate } = useSelectedTemplate()
 
   // 同步localStorage和addedTemplates
   useEffect(() => {
@@ -31,10 +35,20 @@ function AddedTemplatesProvider(props: {children: ReactNode}){
         url
       ]
     )
+
+    // 当添加模板时，自动将选中的模板设置到新加的模板
+    switchSelectedTemplate(url)
   }
 
   // 删除模板
   const remove = (url: string) => {
+    // 当删除模板时，自动将选中的模板切换到指定删除模板的上一个模板
+    if (addedTemplates.indexOf(url) != 0){
+      switchSelectedTemplate(addedTemplates[addedTemplates.indexOf(url) - 1])
+    } else {
+      switchSelectedTemplate("")
+    }
+
     setAddedTemplates(
       addedTemplates.filter((addedTemplate: string) => {addedTemplate != url})
     )
