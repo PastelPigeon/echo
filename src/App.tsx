@@ -1,15 +1,23 @@
 import "./App.css";
+import Providers from "./containers/Providers";
 import Window from "./containers/Window";
 
 function App() {
   return(
-    <div className="app">
-      <Window title="echo(。・ω・。)">
-        <div className="content">
-          
-        </div>
-      </Window>
-    </div>
+    <Providers>
+      <div className="app">
+        <Window title="echo(。・ω・。)">
+          <div className="content">
+            <div className="left-panel">
+
+            </div>
+            <div className="right-panel">
+              
+            </div>
+          </div>
+        </Window>
+      </div>
+    </Providers>
   )
 }
 

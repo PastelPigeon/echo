@@ -49,7 +49,9 @@ function SelectedTemplateInfoProvider(props: {children: ReactNode}){
   // 实时更新info
   useEffect(() => {
     setIsLoading(true)
-    updateSelectedTemplateInfo()
+    if (selectedTemplate != ""){
+      updateSelectedTemplateInfo()
+    }
   }, [selectedTemplate])
 
   const contextValue = {
