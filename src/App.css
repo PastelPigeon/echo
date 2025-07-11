@@ -3,7 +3,7 @@
   src: url("./assets/fonts/ark-pixel-12px-monospaced-zh_cn.otf");
 }
 
-div[data-pb] {
+*[data-pb] {
   clip-path: polygon(0px calc(100% - 8px),
     2px calc(100% - 8px),
     2px calc(100% - 4px),
@@ -34,14 +34,10 @@ div[data-pb] {
     0px 8px);
   position: relative;
 }
-div[data-pb] {
+*[data-pb] {
   border: 2px solid transparent;
 }
-div[data-pb] {
-  width: fit-content;
-  height: fit-content;
-}
-div[data-pb] .pixel-corners {
+*[data-pb] .pixel-corners {
   display: block;
   clip-path: polygon(2px 8px,
     4px 8px,
@@ -64,8 +60,8 @@ div[data-pb] .pixel-corners {
     4px calc(100% - 8px),
     2px calc(100% - 8px));
 }
-div[data-pb]::after,
-div[data-pb]::after {
+*[data-pb]::after,
+*[data-pb]::after {
   content: "";
   position: absolute;
   clip-path: polygon(0px calc(100% - 8px),
@@ -128,6 +124,79 @@ div[data-pb]::after {
   display: block;
   pointer-events: none;
 }
-div[data-pb]::after {
+*[data-pb]::after {
   margin: -2px;
+}
+
+body{
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.root{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.app{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.window{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: calc(100% - 4px);
+  height:  calc(100% - 4px);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.window .title-bar{
+  background: transparent;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.window .title-bar .left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.window .title-bar .left .title{
+  font-family: "ark-pixel";
+  font-size: 14px;
+}
+
+.window .title-bar .right{
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px
+}
+
+.window .title-bar .right button{
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-bottom: transparent 3px solid;
+}
+
+.window > .content{
+  position: relative;
+  left: 3px;
+  width: calc(100% - 10px);
+  height: calc(100% - 47px);
 }
