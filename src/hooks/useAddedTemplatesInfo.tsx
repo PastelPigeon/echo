@@ -3,15 +3,15 @@ import { useAddedTemplates } from "./useAddedTemplates"
 import { fetch } from "@tauri-apps/plugin-http"
 
 type TemplateInfoType = {
-  name: string,
-  description: string,
-  version: string,
+  name: string
+  description: string
+  version: string
   icon: string
 }
 
 type AddedTemplatesInfoType = {
-  url: string,
-  info: TemplateInfoType | null,
+  url: string
+  info: TemplateInfoType | null
   isLoading: boolean
 }[]
 
@@ -24,28 +24,30 @@ const AddedTemplatesInfoContext = createContext<AddedTemplatesInfoContextType | 
 function AddedTemplatesInfoProvider(props: {children: ReactNode}){
   const [addedTemplatesInfo, setAddedTemplatesInfo] = useState<AddedTemplatesInfoType>([])
 
-  // 添加对addedTemplates的引用
+  // 获取已经安装的模板数据
   const { addedTemplates } = useAddedTemplates()
 
-  // 获取模板信息
+  // 获取指定模板的数据
   const getTemplateInfoFromURL = async (templateURL: string) => {
+
+    // 请求数据
     const response = await (await fetch(templateURL)).json()
 
+    // 格式化返回的数据为TemplateInfoType
     const info = {
       name: response.name,
       description: response.description,
       version: response.version,
       icon: response.icon
     }
-
-    setAddedTemplatesInfo((prev) => {
+      
+    setAddedTemplatesInfo(prev => {
       // 深度拷贝addedTemplatesInfo
       let addedTemplatesInfoTemp: AddedTemplatesInfoType = JSON.parse(JSON.stringify(prev))
 
-      // 删除原有的数据
+      // 删除所对应的原始内容
       addedTemplatesInfoTemp = addedTemplatesInfoTemp.filter((addedTemplateInfo) => {addedTemplateInfo.url != templateURL})
 
-      // 添加新的数据
       addedTemplatesInfoTemp.push(
         {
           url: templateURL,
@@ -58,22 +60,23 @@ function AddedTemplatesInfoProvider(props: {children: ReactNode}){
     })
   }
 
-  // 自动更新数据
+  // 实时更新info
   useEffect(() => {
+
     // 初始化addedTemplatesInfo
-    const initialValue = addedTemplates.map((addedTemplate) => {
-      return(
-        {
-          url: addedTemplate,
-          info: null,
-          isLoading: true
-        }
-      )
-    })
+    setAddedTemplatesInfo(
+      addedTemplates.map((addedTemplate) => {
+        return(
+          {
+            url: addedTemplate,
+            info: null,
+            isLoading: true
+          }
+        )
+      })
+    )
 
-    setAddedTemplatesInfo(initialValue)
-
-    // 发起请求
+    // 发起获取信息请求
     addedTemplates.forEach((addedTemplate) => {
       getTemplateInfoFromURL(addedTemplate)
     })
@@ -98,4 +101,4 @@ function useAddedTemplatesInfo(){
   return context;
 };
 
-export { AddedTemplatesInfoProvider, useAddedTemplatesInfo }
+export { useAddedTemplatesInfo, AddedTemplatesInfoProvider }
