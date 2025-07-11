@@ -221,6 +221,7 @@ body{
   position: relative;
   left: 3px;
   width: calc(100% - 10px);
-  height: calc(100% - 47px);
+  height: calc(100% - 55px);
   background: #122125;
+  border-top: #202b36 5px solid;
 }
