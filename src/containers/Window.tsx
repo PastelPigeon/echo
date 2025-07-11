@@ -3,12 +3,12 @@ import { ReactNode } from "react";
 
 const appWindow = getCurrentWindow();
 
-export default function Window(props: {children: ReactNode}){
+export default function Window(props: {children: ReactNode, title: string}){
   return(
     <div className="window" data-pb>
       <div className="title-bar" data-tauri-drag-region>
         <div className="left">
-          <label className="title">echo(/▽＼)</label>
+          <label className="title">{props.title}</label>
         </div>
         <div className="right">
           <button className="min-btn" onClick={() => appWindow.minimize()}>
